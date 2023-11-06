@@ -1,7 +1,7 @@
 const requestsHandler = function (req, res) {
   const url = req.url;
   const method = req.method;
-  const usernameData = "";
+  let usernameData = ""; // Changed const to let
 
   /* Route "/" */
   if (url === "/") {
@@ -9,16 +9,25 @@ const requestsHandler = function (req, res) {
     res.write("<html>");
     res.write("<head><title>My first server</title></head>");
     res.write(
-      "<body><h1>Hey, new user! Welcome from the server!</h1><form action='/username' method='POST'><input type='text' name'username' /><button type'submit'>Submit</button></form></body>"
+      // Corrected the form input and button (there was a typo)
+      "<body><h1>Hey, new user! Welcome from the server!</h1><form action='/create-user' method='POST'><input type='text' name='username' /><button type='submit'>Submit</button></form></body>"
     );
     res.write("</html>");
-    req.on("data", (chunck) => {
-      usernameData += chunck;
+    return res.end();
+  }
+
+  /* Route "/create-user" */
+  if (url === "/create-user" && method === "POST") {
+    req.on("data", (chunk) => {
+      usernameData += chunk;
     });
     req.on("end", () => {
+      console.log(usernameData);
+      // Handle the data, e.g., save the username
+      // Then redirect or respond
       res.statusCode = 302;
-      res.setHeader("Location", "/create-user");
-      return res.end();
+      res.setHeader("Location", "/");
+      res.end();
     });
   }
 
@@ -32,12 +41,6 @@ const requestsHandler = function (req, res) {
     );
     res.write("</html>");
     return res.end();
-  }
-
-  /* Route "/create-user" */
-  if (url === "/create-user" && method === "POST") {
-    console.log(usernameData);
-    res.end();
   }
 };
 

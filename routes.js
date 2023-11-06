@@ -18,13 +18,16 @@ const requestsHandler = function (req, res) {
 
   /* Route "/create-user" */
   if (url === "/create-user" && method === "POST") {
+    let body = "";
     req.on("data", (chunk) => {
-      usernameData += chunk;
+      body += chunk.toString(); // convert Buffer to string
     });
     req.on("end", () => {
-      console.log(usernameData);
-      // Handle the data, e.g., save the username
-      // Then redirect or respond
+      const parsedBody = querystring.parse(body);
+      const username = parsedBody.username;
+      console.log(username); // Log the username to the console
+
+      // After logging the username, you would typically redirect or send some response back
       res.statusCode = 302;
       res.setHeader("Location", "/");
       res.end();

@@ -25,7 +25,7 @@ const requestsHandler = function (req, res) {
     req.on("end", () => {
       const parsedBody = querystring.parse(body);
       const username = parsedBody.username;
-      console.log(username); // Log the username to the console
+      console.log(username.split("=")); // Log the username to the console
 
       // After logging the username, you would typically redirect or send some response back
       res.statusCode = 302;

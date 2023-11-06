@@ -9,7 +9,9 @@ const requestsHandler = function (req, res) {
     res.setHeader("Content-Type", "text/html");
     res.write("<html>");
     res.write("<head><title>My first server</title></head>");
-    res.write("<body><h1>Hey, new user! Welcome from the server!</h1></body>");
+    res.write(
+      "<body><h1>Hey, new user! Welcome from the server!</h1><form action='/username' method='POST'><input type='text' name'username' /><button type'submit'>Submit</button></form></body>"
+    );
     res.write("</html>");
     return res.end();
   }

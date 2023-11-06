@@ -7,9 +7,22 @@ const requestsHandler = function (req, res) {
   /* Route "/" */
   if (url === "/") {
     res.setHeader("Content-Type", "text/html");
-    res.write("<html></html>");
+    res.write("<html>");
     res.write("<head><title>My first server</title></head>");
     res.write("<body><h1>Hey, new user! Welcome from the server!</h1></body>");
+    res.write("</html>");
+    return res.end();
+  }
+
+  /* Route "/users" */
+  if (url === "/users") {
+    res.setHeader("Content-Type", "text/html");
+    res.write("<html>");
+    res.write("<head><title>My first server</title></head>");
+    res.write(
+      "<body><ul><li>Larissa</li><li>Geovana</li><li>Heitor</li></ul></body>"
+    );
+    res.write("</html>");
     return res.end();
   }
 };

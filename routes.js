@@ -3,6 +3,7 @@ const fs = require("fs");
 const requestsHandler = function (req, res) {
   const url = req.url;
   const method = req.method;
+  const usernameData = "";
 
   /* Route "/" */
   if (url === "/") {
@@ -13,7 +14,14 @@ const requestsHandler = function (req, res) {
       "<body><h1>Hey, new user! Welcome from the server!</h1><form action='/username' method='POST'><input type='text' name'username' /><button type'submit'>Submit</button></form></body>"
     );
     res.write("</html>");
-    return res.end();
+    req.on("data", (chunck) => {
+      usernameData += chunck;
+    });
+    req.on("end", () => {
+      res.statusCode = 302;
+      res.setHeader("Location", "/create-user");
+      return res.end();
+    });
   }
 
   /* Route "/users" */
@@ -26,5 +34,11 @@ const requestsHandler = function (req, res) {
     );
     res.write("</html>");
     return res.end();
+  }
+
+  /* Route "/create-user" */
+  if (url === "/create-user" && method === "POST") {
+    console.log(usernameData);
+    res.end();
   }
 };

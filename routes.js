@@ -1,5 +1,3 @@
-const fs = require("fs");
-
 const requestsHandler = function (req, res) {
   const url = req.url;
   const method = req.method;
@@ -42,3 +40,5 @@ const requestsHandler = function (req, res) {
     res.end();
   }
 };
+
+module.exports = requestsHandler;
